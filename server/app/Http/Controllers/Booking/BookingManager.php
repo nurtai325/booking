@@ -7,14 +7,10 @@ use App\Http\Controllers\ValidationTrait;
 use App\Models\Booking;
 use App\Models\Record;
 use App\Models\Service;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-use Symfony\Component\HttpFoundation\InputBag;
 
 class BookingManager extends Controller
 {

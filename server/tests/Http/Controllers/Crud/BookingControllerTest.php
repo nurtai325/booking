@@ -2,7 +2,6 @@
 
 namespace Tests\Http\Controllers\Crud;
 
-use App\Http\Controllers\Crud\BookingController;
 use PHPUnit\Framework\TestCase;
 
 class BookingControllerTest extends TestCase

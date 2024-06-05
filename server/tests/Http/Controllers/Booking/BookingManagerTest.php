@@ -2,7 +2,6 @@
 
 namespace Tests\Http\Controllers\Booking;
 
-use App\Http\Controllers\Booking\BookingManager;
 use PHPUnit\Framework\TestCase;
 
 class BookingManagerTest extends TestCase

@@ -2,7 +2,6 @@
 
 namespace Tests\Http\Controllers\Crud;
 
-use App\Http\Controllers\Crud\ServiceController;
 use PHPUnit\Framework\TestCase;
 
 class ServiceControllerTest extends TestCase

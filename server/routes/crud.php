@@ -19,20 +19,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/service/delete', [ServiceController::class, 'deleteService']);
 });
 
-// Service Groups
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/serviceGroup/getAll', [ServiceGroupController::class, 'getAllServiceGroups']);
-
-    Route::get('/serviceGroup/getOne', [ServiceGroupController::class, 'getServiceGroupById']);
-
-    Route::put('/serviceGroup/create', [ServiceGroupController::class, 'createServiceGroup']);
-
-    Route::post('/serviceGroup/update', [ServiceGroupController::class, 'updateServiceGroup']);
-
-    Route::delete('/serviceGroup/delete', [ServiceGroupController::class, 'deleteServiceGroup']);
-});
-
-
 // Bookings
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/booking/getAll', [BookingController::class, 'getAllBookings']);
