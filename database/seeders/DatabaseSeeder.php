@@ -29,6 +29,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Service::factory()->create();
-        Booking::factory()->create();
+        Booking::factory(10)->create();
     }
 }

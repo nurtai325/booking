@@ -16,7 +16,6 @@ export default function Dashboard({ auth }: PageProps) {
             .catch(function (error) {
                 console.log(error.message);
             })
-
     }, []);
 
     return (
