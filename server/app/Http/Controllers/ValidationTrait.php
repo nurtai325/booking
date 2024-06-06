@@ -4,20 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 trait ValidationTrait
 {
     private function validateId($request):JsonResponse | int
     {
-        if (!$request->isJson()) {
-            return response()->json(['error' => 'Request payload is not json'], 400);
-        }
-
         $id = $request->input('id');
-        if (is_null($id) | !is_int($id)) {
+        $id = (int) $id;
+        Log::info($id);
+        if (is_null($id) |  $id == 0) {
             return response()->json([
-                'error' => 'id must be an integer'
+                'error' => "id must be an integer and can't be 0"
             ], 400);
         }
 
@@ -49,7 +48,7 @@ trait ValidationTrait
             return response()->json(['error' => 'Request payload is not json'], 400);
         }
 
-        $id = $request->input('id');
+        $id = $request->json('id');
         if (is_null($id) | !is_array($id) | !is_int(reset($id))) {
             return response()->json([
                 'error' => 'id must be an integer array'

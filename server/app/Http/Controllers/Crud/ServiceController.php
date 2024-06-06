@@ -24,15 +24,9 @@ class ServiceController extends Controller
 
     public function getAllServices(Request $request): JsonResponse
     {
-        if (!$request->isJson()) {
-            return response()->json(['error' => 'Request payload is not json'], 400);
-        }
-
-        $id = $request->input('id');
-        if (is_null($id) | !is_int($id)) {
-            return response()->json([
-                'error' => 'id must be an integer'
-            ], 400);
+        $id = $this->validateId($request);
+        if ($id instanceof JsonResponse) {
+            return $id;
         }
 
         $services = Service::where('user_id', $id)->get();
@@ -75,11 +69,9 @@ class ServiceController extends Controller
             return $serviceData;
         }
 
-        $id = $request->input('id');
-        if (is_null($id) | !is_int($id)) {
-            return response()->json([
-                'error' => 'id must be an integer'
-            ], 400);
+        $id = $this->validateId($request);
+        if ($id instanceof JsonResponse) {
+            return $id;
         }
 
         try {
@@ -111,11 +103,9 @@ class ServiceController extends Controller
             return $serviceData;
         }
 
-        $id = $request->input('id');
-        if (is_null($id) | !is_int($id)) {
-            return response()->json([
-                'error' => 'id must be an integer'
-            ], 400);
+        $id = $this->validateId($request);
+        if ($id instanceof JsonResponse) {
+            return $id;
         }
 
         try {
@@ -147,11 +137,9 @@ class ServiceController extends Controller
             return response()->json(['error' => 'Request payload is not json'], 400);
         }
 
-        $id = $request->input('id');
-        if (is_null($id) | !is_int($id)) {
-            return response()->json([
-                'error' => 'id must be an integer'
-            ], 400);
+        $id = $this->validateId($request);
+        if ($id instanceof JsonResponse) {
+            return $id;
         }
 
         try {
