@@ -1,11 +1,13 @@
 <?php
 
-namespace Tests\Http\Controllers\Booking;
+namespace Tests\Feature\Http\Controllers\Booking;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\TestCase;
 
 class BookingManagerTest extends TestCase
 {
+    use RefreshDatabase;
 
     public function testGetSchedule()
     {
@@ -18,11 +20,6 @@ class BookingManagerTest extends TestCase
     }
 
     public function testBook()
-    {
-
-    }
-
-    public function testBookOne()
     {
 
     }

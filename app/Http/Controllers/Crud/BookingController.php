@@ -9,6 +9,7 @@ use App\Models\Service;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class BookingController extends Controller
 {
@@ -16,7 +17,6 @@ class BookingController extends Controller
 
     private const validationArray = [
         'start_time' => 'required|string',
-        'booked' => 'required|integer',
     ];
 
     public function getAllBookings(Request $request): JsonResponse
@@ -27,6 +27,12 @@ class BookingController extends Controller
         }
 
         $bookings = Booking::where('service_id', $id)->get();
+
+        $booking = $bookings->first();
+        if ($request->user()->cannot('view', $booking)) {
+            abort(403);
+        }
+
         return response()->json([
             'data' => $bookings,
         ], 200);
@@ -42,6 +48,10 @@ class BookingController extends Controller
         try {
             $booking = Booking::findOrFail($id);
 
+            if ($request->user()->cannot('view', $booking)) {
+                abort(403);
+            }
+
             return response()->json([
                 'data' => $booking
             ], 200);
@@ -52,6 +62,7 @@ class BookingController extends Controller
             ], 400);
         }
     }
+
 
     public function createBooking(Request $request): JsonResponse
     {
@@ -69,21 +80,34 @@ class BookingController extends Controller
             if (!Service::where('service_id', $id)->exists()) {
                 return response()->json(['error' => 'Service not found'], 400);
             }
-            $booking = new Booking();
 
+            $authorized = false;
+            $services = $request->user()->services;
+            foreach ($services as $service) {
+                if ($service->getKey() === $id) {
+                    $authorized = true;
+                    break;
+                }
+            }
+            if (!$authorized) {
+                abort(403);
+            }
+
+            $booking = new Booking();
             $booking->fill($bookingData);
+            $booking->service_id = $id;
             $booking->save();
 
             return response()->json([
                 'message' => 'New booking inserted',
                 'data' => $booking
             ], 200);
-        } catch (\Exception $exception) {
+        } catch (\Exception $e) {
 
             return response()->json([
                 'error' => 'Insertion failed',
-                'message' => $exception->getMessage()
-            ], 500);
+                'message' => $e->getMessage()
+            ], 400);
         }
     }
 
@@ -102,6 +126,10 @@ class BookingController extends Controller
         try {
             $booking = Booking::findOrFail($id);
 
+            if ($request->user()->cannot('update', $booking)) {
+                abort(403);
+            }
+
             $booking->fill($bookingData);
             $booking->save();
 
@@ -119,7 +147,7 @@ class BookingController extends Controller
             return response()->json([
                 'error' => 'Update booking failed',
                 'message' => $exception->getMessage()
-            ], 500);
+            ], 400);
         }
     }
 
@@ -131,6 +159,11 @@ class BookingController extends Controller
 
         try {
             $booking = Booking::findOrFail($id);
+
+            if ($request->user()->cannot('delete', $booking)) {
+                abort(403);
+            }
+
             $booking->delete();
 
             return response()->json([

@@ -13,7 +13,6 @@ trait ValidationTrait
     {
         $id = $request->input('id');
         $id = (int) $id;
-        Log::info($id);
         if (is_null($id) |  $id == 0) {
             return response()->json([
                 'error' => "id must be an integer and can't be 0"

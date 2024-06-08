@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Crud;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ValidationTrait;
+use App\Models\Booking;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -30,6 +31,12 @@ class ServiceController extends Controller
         }
 
         $services = Service::where('user_id', $id)->get();
+
+        $service = $services->first();
+        if ($request->user()->cannot('view', $service)) {
+            abort(403);
+        }
+
         return response()->json([
             'data' => $services,
         ], 200);
@@ -37,19 +44,17 @@ class ServiceController extends Controller
 
     public function getServiceById(Request $request): JsonResponse
     {
-        if (!$request->isJson()) {
-            return response()->json(['error' => 'Request payload is not json'], 400);
-        }
-
-        $id = $request->input('id');
-        if (is_null($id) | !is_int($id)) {
-            return response()->json([
-                'error' => 'id must be an integer'
-            ], 400);
+        $id = $this->validateId($request);
+        if ($id instanceof JsonResponse) {
+            return $id;
         }
 
         try {
             $service = Service::findOrFail($id);
+
+            if ($request->user()->cannot('view', $service)) {
+                abort(403);
+            }
 
             return response()->json([
                 'data' => $service
@@ -78,9 +83,14 @@ class ServiceController extends Controller
             if (!User::where('id', $id)->exists()) {
                 return response()->json(['error' => 'User not found'], 400);
             }
-            $service = new Service();
 
+            if ($request->user()->getKey() !== $id) {
+                abort(403);
+            }
+
+            $service = new Service();
             $service->fill($serviceData);
+            $service->user_id = $id;
             $service->save();
 
             return response()->json([
@@ -92,7 +102,7 @@ class ServiceController extends Controller
             return response()->json([
                 'error' => 'Insertion failed',
                 'message' => $exception->getMessage()
-            ], 500);
+            ], 400);
         }
     }
 
@@ -111,6 +121,10 @@ class ServiceController extends Controller
         try {
             $service = Service::findOrFail($id);
 
+            if ($request->user()->cannot('update', $service)) {
+                abort(403);
+            }
+
             $service->fill($serviceData);
             $service->save();
 
@@ -128,15 +142,11 @@ class ServiceController extends Controller
             return response()->json([
                 'error' => 'Update service failed',
                 'message' => $exception->getMessage()
-            ], 500);
+            ], 400);
         }
     }
 
     public function deleteService(Request $request): JsonResponse {
-        if (!$request->isJson()) {
-            return response()->json(['error' => 'Request payload is not json'], 400);
-        }
-
         $id = $this->validateId($request);
         if ($id instanceof JsonResponse) {
             return $id;
@@ -144,12 +154,18 @@ class ServiceController extends Controller
 
         try {
             $service = Service::findOrFail($id);
+
+            if ($request->user()->cannot('delete', $service)) {
+                abort(403);
+            }
+
+            Booking::where('service_id', $id)->delete();
             $service->delete();
 
             return response()->json([
                 'message' => 'Service deleted'
             ], 200);
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException|\Exception $e) {
             return response()->json([
                 'error' => 'Service not found',
                 'message' => $e->getMessage()

@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('company_type');
             $table->string('address');
             $table->string('phone');
-            $table->string('company_name');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

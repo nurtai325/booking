@@ -18,17 +18,21 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Nurtai',
             'email' => 'nurtolymbek23@gmail.com',
-           'password' => bcrypt('password'),
+            'password' => bcrypt('password'),
             'address' => 'Mukanov 51, Zhanatalap, Almaty',
             'phone' => '87052505839',
             'company_type' => 'football',
-            'company_name' => 'NamAI'
         ]);
 
-        Service::factory()->create();
-        Booking::factory(10)->create();
+        $service = Service::factory()->create([
+            'user_id' => $user->getKey()
+        ]);
+
+        Booking::factory(10)->create([
+            'service_id' => $service->getKey()
+        ]);
     }
 }

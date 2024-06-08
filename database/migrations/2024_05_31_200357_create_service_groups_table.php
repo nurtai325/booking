@@ -14,14 +14,13 @@ return new class extends Migration {
     {
         Schema::create("services", function (Blueprint $table) {
             $table->id("service_id");
+            $table->integer('user_id');
             $table->string("name")->unique();
             $table->string("description");
             $table->float("price");
             $table->integer("capacity");
             $table->timestamps();
             $table->string("additional_info")->nullable();
-            $table->softDeletes();
-            $table->integer('user_id');
             $table->integer('duration');
 
             $table->foreign("user_id")->references("id")->on("users");
@@ -31,11 +30,9 @@ return new class extends Migration {
             $table->id("booking_id");
             $table->integer("service_id");
             $table->time("start_time");
-            $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign("service_id")
-                ->references("service_id")->on("services");
+            $table->foreign("service_id")->references("service_id")->on("services");
         });
 
         Schema::create("records", function (Blueprint $table) {
