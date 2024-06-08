@@ -41,18 +41,8 @@ return new class extends Migration {
             $table->string("phone");
             $table->string("additional_info")->nullable();
             $table->integer("booking_id");
-            $table->timestamps();
-
-            $table->foreign("booking_id")
-                ->references("booking_id")->on("bookings");
-        });
-
-        Schema::create("records_archives", function (Blueprint $table) {
-            $table->id("record_id");
-            $table->string("name");
-            $table->string("phone");
-            $table->string("additional_info")->nullable();
-            $table->integer("booking_id");
+            $table->boolean("client_has_come");
+            $table->boolean("canceled");
             $table->timestamps();
 
             $table->foreign("booking_id")

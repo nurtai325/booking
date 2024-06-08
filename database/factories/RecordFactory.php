@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Booking;
+use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,12 @@ class RecordFactory extends Factory
      */
     public function definition(): array
     {
+        $booking = Booking::where('booking_id', '>', '0')->first();
+
         return [
-            //
+            'name' => fake()->name(),
+            'booking_id' => $booking->getKey(),
+            'phone' => fake()->phoneNumber(),
         ];
     }
 }

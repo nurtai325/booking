@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Record;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -30,7 +33,10 @@ trait ValidationTrait
         $data = $request->json('data');
 
         if (is_null($data)) {
-            return response()->json(['error' => 'data is empty'], 400);
+            return response()->json([
+                'error' => 'data is empty',
+                'data' => $data,
+            ], 400);
         }
 
         $validator = Validator::make($data, $validationArray);
@@ -42,18 +48,16 @@ trait ValidationTrait
         return $data;
     }
 
-    public function validateIdArray(Request $request):JsonResponse | array {
-        if (!$request->isJson()) {
-            return response()->json(['error' => 'Request payload is not json'], 400);
-        }
+    public function validateCreationDate():\Closure
+    {
+        return function (Model $model) {
+                $creation_date_string = $model->created_at;
 
-        $id = $request->json('id');
-        if (is_null($id) | !is_array($id) | !is_int(reset($id))) {
-            return response()->json([
-                'error' => 'id must be an integer array'
-            ], 400);
-        }
+                $creation_date = Carbon::create($creation_date_string)->toDateString();
+                $now = Carbon::now()->toDateString();
 
-        return $id;
+                return $now !== $creation_date;
+        };
     }
+
 }

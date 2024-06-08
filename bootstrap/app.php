@@ -24,16 +24,4 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })
-    ->withSchedule(function (\Illuminate\Console\Scheduling\Schedule $schedule) {
-        $schedule->call(function () {
-            $records = Record::all();
-            Record::truncate();
-
-            foreach ($records as $record) {
-                $record_archive = new Record();
-                $record_archive->fill($record);
-                $record_archive->save();
-            }
-        })->dailyAt('00:00');
-    })
     ->create();

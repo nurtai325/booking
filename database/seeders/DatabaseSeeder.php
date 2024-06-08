@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Booking;
+use App\Models\Record;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -28,11 +29,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $service = Service::factory()->create([
-            'user_id' => $user->getKey()
+            'user_id' => $user->getKey(),
+            'capacity' => 6,
         ]);
 
-        Booking::factory(10)->create([
+        $booking = Booking::factory()->create([
             'service_id' => $service->getKey()
+        ]);
+
+        Record::factory(5)->create([
+            'booking_id' => $booking->getKey(),
         ]);
     }
 }

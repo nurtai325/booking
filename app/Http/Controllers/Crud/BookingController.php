@@ -164,6 +164,10 @@ class BookingController extends Controller
                 abort(403);
             }
 
+            $records = $booking->records;
+            foreach ($records as $record) {
+                $record->delete();
+            }
             $booking->delete();
 
             return response()->json([

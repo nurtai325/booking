@@ -2,34 +2,24 @@
 
 namespace App\Http\Controllers\Booking;
 
+use App\Http\Controllers\ValidationTrait;
 use App\Models\Booking;
+use App\Models\Record;
 use App\Models\Service;
-use Illuminate\Support\Collection;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class BookingInfo
 {
+    use ValidationTrait;
+
     public Service $service;
     public Collection $bookings;
     public int $capacity;
 
-    public function __construct(Service $service)
+    public function __construct(Service $service, Collection $bookings)
     {
         $this->service = $service;
-        $this->bookings = $this->getBookings($service);
-    }
-
-    private function getBookings(Service $service): Collection
-    {
-        $service_id = $service->getKey();
-        $capacity = $service->getAttribute('capacity');
-        $this->capacity = $capacity;
-
-        $bookings = Booking::where('service_id', $service_id);
-        $bookings->reject(function ($booking) use ($capacity) {
-            $count = $booking->records()->count();
-            return $count >= $capacity;
-        });
-
-        return $this->bookings;
+        $this->bookings = $bookings;
     }
 }
