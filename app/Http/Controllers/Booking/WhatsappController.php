@@ -9,5 +9,8 @@ class WhatsappController
 {
     public function webhook(Request $request) {
         Log::info($request->getBody()->toString());
+
+        $data = $request->input('hub.challenge');
+        return $data;
     }
 }
