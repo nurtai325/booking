@@ -31,4 +31,8 @@ class WhatsappController
 
         return $ch;
     }
+
+    public function message(Request $request) {
+        Log::info(json_encode($request->all()));
+    }
 }
