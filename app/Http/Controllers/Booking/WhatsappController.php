@@ -36,7 +36,7 @@ class WhatsappController
         $data = $request->json('entry.0.changes.0.value.messages.0');
         Log::info(json_encode($data));
         Log::info($data['from']);
-        Log::info($data['text.body']);
+        Log::info($data['text']['body']);
 
     }
 }
