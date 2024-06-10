@@ -16,3 +16,5 @@ require __DIR__ . '/crud.php';
     Route::post('/unbook', [BookingManager::class, 'unBook']);
     Route::get('/schedule', [BookingManager::class, 'getSchedule']);
 
+Route::get('/webhooks', [WhatsappController::class, 'verify']);
+Route::post('/webhooks', [WhatsappController::class, 'message']);
