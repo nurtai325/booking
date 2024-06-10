@@ -33,6 +33,6 @@ class WhatsappController
     }
 
     public function message(Request $request) {
-        Log::info(json_encode($request->all()));
+        Log::info(json_encode($request->json('entry.0.changes.0.value')));
     }
 }
