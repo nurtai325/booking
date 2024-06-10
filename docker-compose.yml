@@ -3,8 +3,10 @@ services:
         image: 'nginx:stable-alpine3.19-perl'
         ports:
             - '80:80'
+            - '443:443'
         volumes:
             - './docker/nginx/conf.d/:/etc/nginx/conf.d/'
+            - './docker/nginx/https/:/etc/nginx/https/'
             - './:/var/www'
         container_name: app_nginx
         depends_on:
