@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Log;
 class WhatsappController
 {
     public function webhook(Request $request) {
-        $data = $request->getPayload();
-        Log::info($data->get('hub.challenge'));
+        $data = $request->getPayload()->get('hub.challenge');
+        Log::info($data);
         Log::info($request->fullUrl());
         Log::info($request->integer('hub.challenge'));
-        return response($data->get('hub.challenge'), 200)->header('Content-Type', 'text/plain');
+        return $data;
     }
 }
