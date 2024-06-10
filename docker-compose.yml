@@ -7,6 +7,7 @@ services:
         volumes:
             - './docker/nginx/conf.d/:/etc/nginx/conf.d/'
             - './docker/nginx/https/:/etc/nginx/https/'
+            - './docker/nginx/logs/:/etc/nginx/logs/'
             - './:/var/www'
         container_name: app_nginx
         depends_on:
