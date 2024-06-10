@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 class WhatsappController
 {
     public function webhook(Request $request) {
+        Log::info('request from whatsapp');
         Log::info(json_encode($request->all()));
     }
 }
