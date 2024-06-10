@@ -8,27 +8,7 @@ use Illuminate\Support\Facades\Log;
 class WhatsappController
 {
     public function webhook(Request $request) {
-        $url = $request->getQueryString();
-        $ch = "";
-
-        $found = false;
-        foreach (str_split($url) as $i) {
-            if (!$found) {
-                if ($i === '=') {
-                    $found = true;
-                    continue;
-                }
-            } else {
-                if ($i === '&') {
-                    break;
-                }
-            }
-
-            if ($found) {
-                $ch .= $i;
-            }
-        }
-
-        return $ch;
+        var_dump($request->json('entry'));
+        Log::info($request->json('entry'));
     }
 }
