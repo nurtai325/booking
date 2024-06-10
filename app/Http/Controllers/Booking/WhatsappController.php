@@ -12,6 +12,6 @@ class WhatsappController
         Log::info($data->get('hub.challenge'));
         Log::info($request->fullUrl());
         Log::info($request->integer('hub.challenge'));
-        return response($data->get('hub.challenge'));
+        return response($data->get('hub.challenge'), 200)->header('Content-Type', 'text/plain');
     }
 }
