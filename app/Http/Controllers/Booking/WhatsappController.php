@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Booking;
 
-use http\Env\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class WhatsappController
