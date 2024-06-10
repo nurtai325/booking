@@ -6,7 +6,6 @@ use App\Http\Controllers\Crud\ServiceController;
 use App\Http\Controllers\Crud\ServiceGroupController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->group(function () {
 // Services
     Route::get('/service/getAll', [ServiceController::class, 'getAllServices']);
 
@@ -29,4 +28,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/booking/update', [BookingController::class, 'updateBooking']);
 
     Route::delete('/booking/delete', [BookingController::class, 'deleteBooking']);
-});
