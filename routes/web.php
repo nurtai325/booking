@@ -20,5 +20,3 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-Route::get('/var/www/routes/shram.jpg', fn () => response()->download('/var/www/routes/shram.jpg'));

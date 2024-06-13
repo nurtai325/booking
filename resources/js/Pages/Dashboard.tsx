@@ -14,7 +14,7 @@ export default function Dashboard({ auth }: PageProps) {
     const [schedule, setSchedule ] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost/api/schedule?id=1")
+        axios.get("http://localhost:8000/api/schedule?id=1")
             .then((response) => {
                  setSchedule(response.data.data);
                  setLoaded(true);
