@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Booking\WhatsappController;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Booking\BookingManager;
+use App\Http\Controllers\Booking\ScheduleManager;
+use App\Http\Controllers\ExternalAPI\WhatsappController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
@@ -12,9 +13,9 @@ Route::get('/user', function (Request $request) {
 require __DIR__ . '/crud.php';
 
 // Booking for bots
-    Route::post('/book', [BookingManager::class, 'book']);
-    Route::post('/unbook', [BookingManager::class, 'unBook']);
-    Route::get('/schedule', [BookingManager::class, 'getSchedule']);
+Route::get('/schedule', [ScheduleManager::class, 'getFullSchedule']);
+Route::post('/book', [BookingManager::class, 'book']);
 
+// Whatsapp
 Route::get('/webhooks', [WhatsappController::class, 'verify']);
-Route::post('/webhooks', [WhatsappController::class, 'message']);
+Route::post('/webhooks', [WhatsappController::class, 'webHook']);

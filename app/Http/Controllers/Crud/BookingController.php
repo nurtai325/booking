@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\ValidationTrait;
 use App\Models\Booking;
 use App\Models\Service;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -181,5 +182,21 @@ class BookingController extends Controller
         }
     }
 
+    public function getAvailableBookings(Service $service): Collection
+    {
+        $service_id = $service->getKey();
+        $capacity = $service->capacity;
 
+        return Booking::where('service_id', $service_id)
+            ->get()
+            ->reject(function ($booking) use ($capacity) {
+                $count = $booking->records()
+                    ->where('canceled', false)
+                    ->get()
+                    ->reject($this->validateCreationDate())
+                    ->count();
+
+                return $count >= $capacity;
+            });
+    }
 }

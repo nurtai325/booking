@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Booking;
 
+use App\Events\BookingReceived;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ValidationTrait;
 use App\Models\Booking;
@@ -57,6 +58,8 @@ class BookingManager extends Controller
             $record->setAttribute('booking_id', $id);
             $record->save();
 
+            BookingReceived::dispatch($record, $booking->service->user->getKey());
+
             return response()->json([
                 'message' => 'successfully booked',
                 'record' => $record,
@@ -87,6 +90,8 @@ class BookingManager extends Controller
             $record->canceled = true;
             $record->save();
 
+            BookingReceived::dispatch($record);
+
             return response()->json([
                 'message' => 'successfully unbooked',
                 'data' => $record
@@ -98,48 +103,4 @@ class BookingManager extends Controller
         }
     }
 
-    public function getSchedule(Request $request): JsonResponse {
-        $id = $this->validateId($request);
-        if ($id instanceof JsonResponse) {
-            return $id;
-        }
-
-        $data = new Collection();
-        $services = Service::where('user_id', $id)->get();
-
-        if (count($services) == 0) {
-            return response()->json([
-                'error' => "user doesn't have any services"
-            ], 400);
-        }
-
-        foreach ($services as $service) {
-            $bookings = $this->getBookings($service);
-            $bookingInfo = new BookingInfo($service, $bookings);
-            $data->add($bookingInfo);
-        }
-
-        return response()->json([
-            'message' => 'schedule for the user is provided',
-            'data' => $data,
-        ],200);
-    }
-
-    private function getBookings(Service $service): Collection
-    {
-        $service_id = $service->getKey();
-        $capacity = $service->capacity;
-
-        return Booking::where('service_id', $service_id)
-            ->get()
-            ->reject(function ($booking) use ($capacity) {
-                $count = $booking->records()
-                    ->where('canceled', false)
-                    ->get()
-                    ->reject($this->validateCreationDate())
-                    ->count();
-
-                return $count >= $capacity;
-            });
-    }
 }

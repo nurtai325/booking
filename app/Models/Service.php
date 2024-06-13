@@ -22,4 +22,9 @@ class Service extends Model
     public function booking(): HasMany {
         return $this->hasMany(Booking::class, 'service_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

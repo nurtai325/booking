@@ -1,18 +1,12 @@
 <?php
 
-use App\Http\Controllers\Booking\WhatsappController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect('/dashboard');
 });
 
 Route::get('/dashboard', function () {
@@ -27,3 +21,4 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/var/www/routes/shram.jpg', fn () => response()->download('/var/www/routes/shram.jpg'));
