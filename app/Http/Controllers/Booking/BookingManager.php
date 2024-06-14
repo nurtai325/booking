@@ -26,9 +26,7 @@ class BookingManager extends Controller
         'additional_info' => 'nullable|string',
     ];
 
-    public function book(Request $request): JsonResponse {
-        $id = $this->validateId($request);
-
+    public function book(int $id, string $name, string $phone, string $additional_info): JsonResponse {
         try {
             $booking = Booking::findOrFail($id);
             $booked = Record::where('booking_id', $id)
@@ -48,17 +46,16 @@ class BookingManager extends Controller
                 ], 400);
             }
 
-            $bookingData = $this->validateInputData($request, self::validationArray);
-            if ($bookingData instanceof JsonResponse) {
-                return $bookingData;
-            }
+            $bookingData = [
+                'name' => $name,
+                'phone' => $phone,
+                'additional_info' => $additional_info,
+            ];
 
             $record = new Record();
             $record->fill($bookingData);
             $record->setAttribute('booking_id', $id);
             $record->save();
-
-            BookingReceived::dispatch($record, $booking->service->user->getKey());
 
             return response()->json([
                 'message' => 'successfully booked',
@@ -71,13 +68,8 @@ class BookingManager extends Controller
         }
     }
 
-    public function unBook(Request $request): JsonResponse
+    public function unBook(int $id): JsonResponse
     {
-        $id = $this->validateId($request);
-        if ($id instanceof JsonResponse) {
-            return $id;
-        }
-
         try {
             $record = Record::findOrFail($id);
 
@@ -89,8 +81,6 @@ class BookingManager extends Controller
 
             $record->canceled = true;
             $record->save();
-
-            BookingReceived::dispatch($record);
 
             return response()->json([
                 'message' => 'successfully unbooked',

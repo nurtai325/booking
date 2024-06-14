@@ -14,7 +14,6 @@ require __DIR__ . '/crud.php';
 
 // Booking for bots
 Route::get('/schedule', [ScheduleManager::class, 'getFullSchedule']);
-Route::post('/book', [BookingManager::class, 'book']);
 
 // Whatsapp
 Route::get('/webhooks', [WhatsappController::class, 'verify']);

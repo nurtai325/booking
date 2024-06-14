@@ -2,47 +2,86 @@
 
 namespace App\Http\Controllers\ExternalAPI;
 
+use App\Http\Controllers\Booking\BookingManager;
+use App\Http\Controllers\ValidationTrait;
+use App\Models\ChatSession;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Twilio\Rest\Client;
 
+// todo complete the webhook
 class WhatsappController
 {
+    use ValidationTrait;
+
     public function webHook(Request $request) {
-        $messages = $request->json('entry.0.changes.0.value.messages');
+        $message = '';
+        $phone = '';
+        $chat_session_id = $this->getSessionId($phone);
+        $user_id = User::where('phone', $phone)->getFirst()->getKey();
 
-        foreach ($messages as $message) {
-            $from = $message['from'];
-            $text = $message['text']['body'];
+        $openai = new OpenAIController();
+        $action = $openai->sendRequest($user_id, $chat_session_id, $message);
+        if (is_null($action)) {
+            throw new \Exception('openai request is null');
+        }
 
-            $this->sendTextMessage($from, $text);
+        $bookingManager = new BookingManager();
 
-            Log::info('from: ', $from);
-            Log::info('text: ', $text);
+        switch ($action->action) {
+            case "Continue":
+                $this->sendTextMessage('', '', $action->text);
+                break;
+            case "Book":
+                $bookingManager->book(
+                    $action->id,
+                    $action->name,
+                    $action->phone,
+                    $action->additional_info);
+                break;
+            case "UnBook":
+                $bookingManager->unBook($action->id);
+                break;
+            default:
+                Log::info("ChatGPT error:");
+                Log::info($action->action);
+                Log::info($action->text);
         }
     }
 
-    public function sendTextMessage(string $from, string $text) {
-        $token = env("WHATSAPP_TOKEN");
-        if (is_null($token)) {
-            Log::info('whatsapp token is null');
-        }
+    public function sendTextMessage(string $from, string $to, string $text) {
+        $sid = env('SID');
+        $token = env('TWILIO_TOKEN');
 
         try {
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $token,
-            ])->post(env("WHATSAPP_URL"), [
-                'messaging_product' => 'whatsapp',
-                'recipient' => 'individual',
-                'to' => $from,
-                'type' => 'text',
-                'text' => [
-                    'body' => $text,
-                ]
-            ]);
+            $twilio = new Client($sid, $token);
+
+            $twilio->messages->create(
+                "whatsapp:$to", array(
+                        "from" => "whatsapp:$from",
+                        "body" => $text,
+                    )
+                );
         } catch (\Exception $e) {
             Log::info($e->getMessage());
         }
+    }
+
+    public function getSessionId(string $phone): int {
+        $chat_sessions = ChatSession::where('phone', $phone)
+            ->get()
+            ->reject($this->validateCreationDate());
+
+        if ($chat_sessions->count() === 0) {
+            $chat_session = ChatSession::create([
+                'phone' => $phone,
+            ]);
+
+            return $chat_session->getKey();
+        }
+
+        return $chat_sessions->first()->getKey();
     }
 
     public function verify(Request $request) {

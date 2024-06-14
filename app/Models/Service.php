@@ -12,9 +12,7 @@ class Service extends Model
     use HasFactory;
 
     protected $primaryKey = 'service_id';
-
     protected $guarded = [];
-
     protected $attributes = [
         'duration' => 60
     ];
