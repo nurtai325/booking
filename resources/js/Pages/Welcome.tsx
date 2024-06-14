@@ -25,23 +25,19 @@ export default function Welcome() {
 
 
             <div className="flex flex-col items-center justify-center bg-gray-100 text-gray-800 text-center p-5">
-                <h1 className="mb-[30px] mt-[50px] text-[3.3em] text-[#007bff] font-serif">
-                    {kz ? " Брондау қолданбасына қош келдіңіз!" : "Добро пожаловать в приложение для бронирования!"}
+                <h1 className="mb-[30px] mt-[50px] text-[3.3em] text-[black] font-serif">
+                    {kz ? " Жасанды интеллектпен қуатталған броньдау жүйесі!" : "Система бронирования с искусственным интеллектом"}
 
                 </h1>
 
                 {/*<p>Ваше универсальное решение для эффективного управления бронированиями.</p>*/}
 
                 <div className="feature-area">
-
                     <div className="feature-area-card">
-
                         <div className="feature-area-card__text text-left card-item">
-
                             <h2 className="feature-area-card__header mb-[40px] text-[24px] text-[#469fff] font-semibold">
-                                {kz ? " Брондауды тиімді басқаруға арналған универсалды шешімі." : "Ваше универсальное решение для эффективного управления бронированиями.\n"}
+                                {kz ? " Броньдауды тиімді басқаруға арналған универсалды шешімі." : "Ваше универсальное решение для эффективного управления бронированиями.\n"}
                             </h2>
-
                             <div className="feature-area-card__description text-left">
                                 {kz ?
                                 "Біздің ыңғайлы бақылау тақтасы барлық брондауды басқару үшін интуитивті интерфейсті қамтамасыз етеді.\n" +
@@ -53,16 +49,24 @@ export default function Welcome() {
                                     "Вся информация структурирована и доступна в несколько кликов, что позволяет вам\n" +
                                     "сосредоточиться на важных задачах."
                                 }
-
-                                <button
+{/*                                <button
                                     className="custom-btn tooltip-container btn-2 w-[200px] h-[33px] rounded-[10px] text-center bg-[#469fff] hover:bg-[#025bbd] text-white mt-[20px]">
-
-                                    <div className="tooltip"> </div>
-
                                     <span className="text">
                                     {kz ? "Жұмысты бастау" : "Начать"}
                                     </span>
-                                </button>
+                                </button>*/}
+
+                                <div className=" mt-[15px] font-semibold ">
+
+                                <div>
+                                    {kz ? "Біздің сату бөліміне хабарласыңыз: ": "Свяжитесь с нашим отделом продаж"}
+
+                                </div>
+                                <div>
+                                    +7 747 625 8173 <br/>
+                                    +7 747 547 2426
+                                </div>
+                                </div>
                             </div>
                         </div>
 
