@@ -5,42 +5,22 @@ import {useEffect, useState} from "react";
 import TimeTable from "@/Components/Dashboard/TimeTable";
 import {useStore} from "@/store";
 import axios from "axios";
-import Echo from "laravel-echo";
-import Pusher from "pusher-js";
 
 export default function Dashboard({ auth }: PageProps) {
     const kz = useStore((state) => state.kz);
     const [loaded, setLoaded] = useState(false);
     const [schedule, setSchedule ] = useState([]);
 
-    auth.user.id;
+    let user_id = auth.user.id;
 
     useEffect(() => {
-        axios.get("http://localhost/api/schedule?id=1")
+        axios.get(`http://localhost:/api/schedule?id=${user_id}`)
             .then((response) => {
                  setSchedule(response.data.data);
                  setLoaded(true);
             })
             .catch((error) => console.log(error.message));
     }, []);
-
-    window.Pusher = Pusher;
-
-    window.Echo = new Echo({
-        broadcaster: 'reverb',
-        key: import.meta.env.VITE_REVERB_APP_KEY,
-        wsHost: import.meta.env.VITE_REVERB_HOST,
-        wsPort: import.meta.env.VITE_REVERB_PORT,
-        wssPort: import.meta.env.VITE_REVERB_PORT,
-        forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
-        enabledTransports: ['ws', 'wss'],
-    });
-
-    window.Echo.private(`bookings.${auth.user.id}`)
-        .listen('BookingReceived', (e: Event) => {
-            console.log(e.reservation);
-        });
-
 
     return (
         <AuthenticatedLayout
