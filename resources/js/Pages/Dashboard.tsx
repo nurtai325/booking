@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import TimeTable from "@/Components/Dashboard/TimeTable";
 import {useStore} from "@/store";
 import axios from "axios";
+
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 
@@ -14,13 +15,15 @@ export default function Dashboard({ auth }: PageProps) {
     const [schedule, setSchedule ] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/schedule?id=1")
+        axios.get("http://localhost:/api/schedule?id=1")
             .then((response) => {
                  setSchedule(response.data.data);
                  setLoaded(true);
             })
             .catch((error) => console.log(error.message));
     }, []);
+
+
 
     return (
         <AuthenticatedLayout
