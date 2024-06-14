@@ -38,6 +38,8 @@ export default function Welcome() {
                             <h2 className="feature-area-card__header mb-[40px] text-[24px] text-[#469fff] font-semibold">
                                 {kz ? " Броньдауды тиімді басқаруға арналған универсалды шешімі." : "Ваше универсальное решение для эффективного управления бронированиями.\n"}
                             </h2>
+
+
                             <div className="feature-area-card__description text-left">
                                 {kz ?
                                 "Біздің ыңғайлы бақылау тақтасы барлық брондауды басқару үшін интуитивті интерфейсті қамтамасыз етеді.\n" +
@@ -60,7 +62,6 @@ export default function Welcome() {
 
                                 <div>
                                     {kz ? "Біздің сату бөліміне хабарласыңыз: ": "Свяжитесь с нашим отделом продаж"}
-
                                 </div>
                                 <div>
                                     +7 747 625 8173 <br/>
@@ -132,7 +133,7 @@ export default function Welcome() {
                 </div>
 
 
-                <div className="flex flex-wrap justify-center gap-[40px] mb-[40px] w-[80%]">
+                <div className="flex flex-wrap justify-center gap-[40px] mb-[40px] w-[90%]">
 
 
                     <div className="feature-area-card">
