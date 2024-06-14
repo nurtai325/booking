@@ -54,7 +54,15 @@ export default function Welcome() {
                                     "сосредоточиться на важных задачах."
                                 }
 
-                                <button className="custom-btn btn-2 w-[200px] h-[33px] rounded-[10px] text-center bg-[#469fff] hover:bg-[#025bbd] text-white mt-[20px]"> {kz ? "Жұмысты бастау" : "Начать"}</button>
+                                <button
+                                    className="custom-btn tooltip-container btn-2 w-[200px] h-[33px] rounded-[10px] text-center bg-[#469fff] hover:bg-[#025bbd] text-white mt-[20px]">
+
+                                    <div className="tooltip"> </div>
+
+                                    <span className="text">
+                                    {kz ? "Жұмысты бастау" : "Начать"}
+                                    </span>
+                                </button>
                             </div>
                         </div>
 
