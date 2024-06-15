@@ -17,8 +17,8 @@ p {
 }
 .feature-area {
     /*padding: 24px 20px;*/
-    padding: 4% 3%;
-    width: 80%;
+    padding: 7% 0;
+    width: 90%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -36,7 +36,8 @@ p {
     display: flex;
     flex-wrap: wrap;
     background: #fff;
-    padding: 20px;
+    /*padding: 20px;*/
+    padding: 4%;
     margin-bottom: 20px;
     border-radius: 22px;
 }
@@ -44,11 +45,12 @@ p {
 .card-item {
     flex: 1 1 50%; /* Flex-grow: 1, Flex-shrink: 1, Flex-basis: 50% */
     box-sizing: border-box;
-    padding: 10px;
+    /*padding: 10px;*/
 }
 
 .feature-area-card__text {
-    padding: 64px 64px 32px;
+    /*padding: 64px 64px 32px;*/
+    padding: 6% 7% 3%;
     font-size: 20px;
 }
 
