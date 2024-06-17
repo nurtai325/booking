@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
       libpng-dev \
       libzip-dev \
       zip unzip \
+      ca-certificates \
       git && \
       docker-php-ext-configure pcntl --enable-pcntl \
       && docker-php-ext-install \
@@ -25,4 +26,21 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
     --filename=composer \
     --install-dir=/usr/local/bin
 
+ENV NVM_DIR /usr/local/nvm
+RUN mkdir -p "$NVM_DIR"; \
+    curl -o- \
+        "https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh" | \
+        bash \
+    ; \
+    . $NVM_DIR/nvm.sh; \
+    nvm install --lts --latest-npm
+
+ENV NVM_DIR /usr/local/nvm
+RUN mkdir -p "$NVM_DIR" \
+    && curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh" \
+    && . $NVM_DIR/nvm.sh \
+    && nvm install 19.9.0
+
 WORKDIR /var/www
+
+ENTRYPOINT ["docker/app/start-container"]

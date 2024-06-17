@@ -1,26 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Booking;
+namespace App\Booking;
 
-use App\Events\BookingReceived;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ValidationTrait;
 use App\Models\Booking;
 use App\Models\Record;
-use App\Models\Service;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\InputBag;
 
 class BookingManager extends Controller
 {
     use ValidationTrait;
 
-    private const validationArray = [
+    private const array validationArray = [
         'name' => 'required|string',
         'phone' => 'required|string',
         'additional_info' => 'nullable|string',

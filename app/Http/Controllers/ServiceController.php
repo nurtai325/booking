@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Crud;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\ValidationTrait;
 use App\Models\Booking;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\Client\Request;
 
 class ServiceController extends Controller
 {

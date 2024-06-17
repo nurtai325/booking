@@ -25,3 +25,4 @@ tmp
 docker/logs
 docker/nginx/https
 docker/nginx/logs
+public/build

@@ -1,10 +1,12 @@
 <?php
 
 // Services
-use App\Http\Controllers\Crud\BookingController;
-use App\Http\Controllers\Crud\ServiceController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Crud\ServiceGroupController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
+
+Route::middleware('auth:sanctum')->group(function () {
 
 // Services
     Route::get('/service/getAll', [ServiceController::class, 'getAllServices']);
@@ -28,3 +30,4 @@ use Illuminate\Support\Facades\Route;
     Route::patch('/booking/update', [BookingController::class, 'updateBooking']);
 
     Route::delete('/booking/delete', [BookingController::class, 'deleteBooking']);
+});

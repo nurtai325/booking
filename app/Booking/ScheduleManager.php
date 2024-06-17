@@ -1,33 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Booking;
+namespace App\Booking;
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Crud\BookingController;
 use App\Http\Controllers\ValidationTrait;
 use App\Models\Booking;
 use App\Models\Service;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;use Psy\Util\Json;
+use Illuminate\Http\Request;
 
 class ScheduleManager extends Controller
 {
     use ValidationTrait;
 
-    public function getFullSchedule(Request $request): JsonResponse {
-        $id = $this->validateId($request);
-        if ($id instanceof JsonResponse) {
-            return $id;
-        }
-
+    public function getFullSchedule(int $id): Collection {
         $data = new Collection();
         $services = Service::where('user_id', $id)->get();
 
         if (count($services) == 0) {
-            return response()->json([
-                'error' => "user doesn't have any services"
-            ], 400);
+            return new Collection();
         }
 
         foreach ($services as $service) {
@@ -40,18 +33,15 @@ class ScheduleManager extends Controller
             $data->add($bookingInfo);
         }
 
-        return response()->json([
-            'message' => 'schedule for the user is provided',
-            'data' => $data,
-        ],200);
+        return $data;
     }
 
-    public function getAvailableSchedule(int $id): array | bool {
+    public function getAvailableSchedule(int $id): array | null {
         $data = [];
         $services = Service::where('user_id', $id)->get();
 
         if (count($services) == 0) {
-            return false;
+            return null;
         }
 
         $bookingController = new BookingController();
