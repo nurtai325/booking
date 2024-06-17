@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Booking\ScheduleManager;
-use Illuminate\Http\Request;
+use App\Booking\Booking\ScheduleManager;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {

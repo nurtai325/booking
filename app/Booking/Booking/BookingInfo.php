@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Booking;
+namespace App\Booking\Booking;
 
 use App\Http\Controllers\ValidationTrait;
 use App\Models\Service;
-use Illuminate\Database\Eloquent\Collection;
 
-class Schedule
+class BookingInfo
 {
     use ValidationTrait;
 
     public Service $service;
-    public Collection $bookings;
+    public array $bookings;
     public int $capacity;
 
-    public function __construct(Service $service, Collection $bookings)
+    public function __construct(Service $service, array $bookings)
     {
         $this->service = $service;
         $this->bookings = $bookings;
     }
 }
+

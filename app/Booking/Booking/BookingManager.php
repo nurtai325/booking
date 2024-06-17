@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Booking;
+namespace App\Booking\Booking;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ValidationTrait;
