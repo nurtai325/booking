@@ -13,3 +13,7 @@ require __DIR__ . '/crud.php';
 
 Route::get('/schedule', [ScheduleController::class, 'getFullSchedule'])
     ->middleware('auth:sanctum');
+
+Route::post('/webhook', function (Request $request) {
+    var_dump($request->all());
+});

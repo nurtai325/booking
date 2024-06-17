@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Booking\ScheduleManager;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class ScheduleController extends Controller
