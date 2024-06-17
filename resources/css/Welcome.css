@@ -17,7 +17,7 @@ p {
 }
 .feature-area {
     /*padding: 24px 20px;*/
-    padding: 7% 0;
+    padding: 3% 0;
     width: 90%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -38,19 +38,18 @@ p {
     background: #fff;
     /*padding: 20px;*/
     padding: 4%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-radius: 22px;
 }
 
 .card-item {
     flex: 1 1 50%; /* Flex-grow: 1, Flex-shrink: 1, Flex-basis: 50% */
     box-sizing: border-box;
-    /*padding: 10px;*/
 }
 
 .feature-area-card__text {
     /*padding: 64px 64px 32px;*/
-    padding: 6% 7% 3%;
+    padding: 6% 5% 3%;
     font-size: 20px;
 }
 

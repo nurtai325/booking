@@ -27,7 +27,6 @@ export default function Welcome() {
             <div className="flex flex-col items-center justify-center bg-gray-100 text-gray-800 text-center p-5">
                 <h1 className="mb-[30px] mt-[50px] text-[3.3em] text-[black] font-serif">
                     {kz ? " Жасанды интеллектпен қуатталған броньдау жүйесі!" : "Система бронирования с искусственным интеллектом"}
-
                 </h1>
 
                 {/*<p>Ваше универсальное решение для эффективного управления бронированиями.</p>*/}
