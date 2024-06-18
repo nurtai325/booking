@@ -18,6 +18,8 @@ class Booking extends Model
     protected $attributes = [
     ];
 
+    public $timestamps = false;
+
     public function service(): BelongsTo {
         return $this->belongsTo(Service::class, 'service_id', 'service_id');
     }

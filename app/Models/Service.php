@@ -16,6 +16,7 @@ class Service extends Model
     protected $attributes = [
         'duration' => 60
     ];
+    public $timestamps = false;
 
     public function booking(): HasMany {
         return $this->hasMany(Booking::class, 'service_id');

@@ -35,6 +35,7 @@ class UserFactory extends Factory
             'address' => fake()->address(),
             'phone' => fake()->phoneNumber(),
             'company_type' => fake()->text(10),
+            'bot' => fake()->text(10),
         ];
     }
 
