@@ -13,10 +13,9 @@ class ChatGPT
 {
     use ValidationTrait;
 
-    // todo write fine tuning
     private const array MESSAGE_TUNING = [
         "role" => "system",
-        "content" => "",
+        "content" => MessageTuning::TEXT,
     ];
 
     public function sendChatPrompt(int $chat_id, string $token): MessagePromptResponse {
