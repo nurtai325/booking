@@ -61,11 +61,13 @@ class WebHookController extends WebhookHandler
 
     public function hi()
     {
+        Log::info('new webhook request');
         $this->chat->markdown("*Hi* happy to be here!")->send();
     }
 
     protected function onFailure(Throwable $throwable): void
     {
+        Log::info('new webhook request');
         if ($throwable instanceof NotFoundHttpException) {
             throw $throwable;
         }
