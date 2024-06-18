@@ -24,7 +24,7 @@ class ChatGPT
 
         $messages = $this->getMessages($chat_id, $token);
         $chat = $open_ai->chat([
-            'model' => 'gpt-4o',
+            'model' => 'gpt-3.5-turbo-0125',
             'messages' => $messages,
             'temperature' => 1.0,
             'max_tokens' => 300,
