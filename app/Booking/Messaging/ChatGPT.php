@@ -31,7 +31,6 @@ class ChatGPT
             'frequency_penalty' => 0,
             'presence_penalty' => 0,
         ]);
-        Log::info(json_encode($messages));
 
         $d = json_decode($chat);
         $content = $d->choices[0]->message->content;
@@ -66,14 +65,7 @@ class ChatGPT
 
     private function getMessages(int $chat_id, string $token): array {
         $messages = [];
-        $messages[] = self::MESSAGE_TUNING;
         $scheduleManager = new ScheduleManager();
-
-        $user_id = User::where('bot', $token)->get()->first()->getKey();
-        $messages[] = [
-            'role' => 'system',
-            'content' => json_encode($scheduleManager->getAvailableSchedule($user_id)),
-        ];
 
         $previous = Message::where('chat_id', $chat_id)
             ->get()
@@ -85,6 +77,14 @@ class ChatGPT
                 'content' => $message->content,
             ];
         }
+
+        $user_id = User::where('bot', $token)->get()->first()->getKey();
+        $messages[] = [
+            'role' => 'system',
+            'content' => json_encode($scheduleManager->getAvailableSchedule($user_id)),
+        ];
+
+        $messages[] = self::MESSAGE_TUNING;
 
         return $messages;
     }

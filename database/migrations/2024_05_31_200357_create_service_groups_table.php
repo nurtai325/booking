@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->string("description");
             $table->float("price");
             $table->integer("capacity");
-            $table->timestamps();
             $table->string("additional_info")->nullable();
             $table->integer('duration');
 
@@ -30,7 +29,6 @@ return new class extends Migration {
             $table->id("booking_id");
             $table->unsignedBigInteger("service_id");
             $table->time("start_time");
-            $table->timestamps();
 
             $table->foreign("service_id")->references("service_id")->on("services");
         });
