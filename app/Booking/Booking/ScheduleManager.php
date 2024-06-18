@@ -25,7 +25,9 @@ class ScheduleManager extends Controller
             $bookingsArray = [];
             $bookings = Booking::where('service_id', $service->getKey())->get();
             foreach ($bookings as $booking) {
-                $bookingsArray[] = new Bookings($booking, $booking->records);
+                $bookingsArray[] = new Bookings($booking, $booking->records->reject(function ($record) {
+                    return $record->canceled === true;
+                }));
             }
             $bookingInfo = new BookingInfo($service, $bookingsArray);
             $data->add($bookingInfo);

@@ -2,7 +2,7 @@
 
 namespace App\Booking\Messaging;
 
-class TelegramWebhook
+class TelegramAPI
 {
     public function sendMessage()
     {

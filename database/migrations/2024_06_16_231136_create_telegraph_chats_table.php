@@ -17,10 +17,19 @@ return new class () extends Migration {
 
             $table->unique(['chat_id', 'telegraph_bot_id']);
         });
+
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id('message_id');
+            $table->timestamps();
+            $table->integer('chat_id');
+            $table->text('content');
+            $table->text('role');
+        });
     }
 
     public function down(): void
     {
         Schema::dropIfExists('telegraph_chats');
+        Schema::dropIfExists('messages');
     }
 };

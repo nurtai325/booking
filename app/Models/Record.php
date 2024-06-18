@@ -15,7 +15,6 @@ class Record extends Model
     protected $primaryKey = "record_id";
 
     protected $attributes = [
-        'client_has_come' => false,
         'canceled' => false,
     ];
 }

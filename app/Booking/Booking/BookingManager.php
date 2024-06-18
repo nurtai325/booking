@@ -61,17 +61,16 @@ class BookingManager extends Controller
         }
     }
 
-    public function unBook(int $id): JsonResponse
+    public function unBook(int $id, string $phone): JsonResponse
     {
         try {
-            $record = Record::findOrFail($id);
+            $records = Record::where('booking_id', $id)
+                ->where('canceled', false)
+                ->where('phone', $phone)
+                ->get()
+                ->reject($this->validateCreationDate());
 
-            if ($record->client_has_come) {
-                return response()->json([
-                    'error' => 'client has already come',
-                ], 400);
-            }
-
+            $record = $records->first();
             $record->canceled = true;
             $record->save();
 
@@ -85,5 +84,4 @@ class BookingManager extends Controller
             ], 400);
         }
     }
-
 }

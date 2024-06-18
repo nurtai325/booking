@@ -41,7 +41,6 @@ return new class extends Migration {
             $table->string("phone");
             $table->string("additional_info")->nullable();
             $table->unsignedBigInteger("booking_id");
-            $table->boolean("client_has_come");
             $table->boolean("canceled");
             $table->timestamps();
 

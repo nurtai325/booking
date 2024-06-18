@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RecordController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -13,8 +14,5 @@ require __DIR__ . '/crud.php';
 Route::get('/schedule', [ScheduleController::class, 'getFullSchedule'])
     ->middleware('auth:sanctum');
 
-/*
-Route::post('/webhook', function (Request $request) {
-    var_dump($request->all());
-});
-*/
+Route::post('book', [RecordController::class, 'book']);
+Route::post('unbook', [RecordController::class, 'unBook']);

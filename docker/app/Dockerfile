@@ -42,5 +42,3 @@ RUN mkdir -p "$NVM_DIR" \
     && nvm install 19.9.0
 
 WORKDIR /var/www
-
-ENTRYPOINT ["docker/app/start-container"]
