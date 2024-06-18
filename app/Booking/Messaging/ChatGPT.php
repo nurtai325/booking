@@ -27,7 +27,7 @@ class ChatGPT
             'model' => 'gpt-4o',
             'messages' => $messages,
             'temperature' => 1.0,
-            'max_tokens' => 150,
+            'max_tokens' => 300,
             'frequency_penalty' => 0,
             'presence_penalty' => 0,
         ]);
