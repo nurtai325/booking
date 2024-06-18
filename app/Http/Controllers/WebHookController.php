@@ -59,10 +59,10 @@ class WebHookController extends WebhookHandler
         }
     }
 
-    public function hi()
+    public function start()
     {
         Log::info('new webhook request');
-        $this->chat->markdown("*Hi* happy to be here!")->send();
+        $this->chat->markdown("Сәлем, мен саған броньдауға көмектесетін ботпын. Маған қалаған сұрақтарыңды қоя бер.")->send();
     }
 
     protected function onFailure(Throwable $throwable): void
@@ -74,6 +74,6 @@ class WebHookController extends WebhookHandler
 
         report($throwable);
 
-        $this->reply('sorry man, I failed hard');
+        $this->reply('Кешіріңіз, техникалық ақаулар. Кейінірек жазуыңызды сұраймын.');
     }
 }
