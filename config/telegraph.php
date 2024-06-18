@@ -29,7 +29,7 @@ return [
          *
          * For reference, see https://docs.defstudio.it/telegraph/webhooks/overview
          */
-        'handler' => WebHookController::class,
+        'handler' => \DefStudio\Telegraph\Handlers\EmptyWebhookHandler::class,
 
         /*
          * Middleware to be applied to the webhook route
