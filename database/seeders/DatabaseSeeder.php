@@ -28,17 +28,41 @@ class DatabaseSeeder extends Seeder
             'company_type' => 'football',
         ]);
 
-        $service = Service::factory()->create([
+        $service = Service::factory(10)->create([
             'user_id' => $user->getKey(),
             'capacity' => 6,
         ]);
 
-        $booking = Booking::factory()->create([
-            'service_id' => $service->getKey()
+        $service->each(function ($service) {
+            $booking = Booking::factory()->create([
+                'service_id' => $service->getKey(),
+            ]);
+
+            Record::factory(5)->create([
+                'booking_id' => $booking->getKey(),
+            ]);
+
+
+            Booking::factory()->create([
+                'service_id' => $service->getKey(),
+            ]);
+        });
+
+        $additionalBooking = Booking::factory()->create([
+            'service_id' => $service->first()->getKey(), // or any specific service you want to assign it to
         ]);
 
+        // Optional: Adding records to the additional booking
         Record::factory(5)->create([
-            'booking_id' => $booking->getKey(),
+            'booking_id' => $additionalBooking->getKey(),
         ]);
+
+//        $booking = Booking::factory()->create([
+//            'service_id' => $service->getKey()
+//        ]);
+//
+//        Record::factory(5)->create([
+//            'booking_id' => $booking->getKey(),
+//        ]);
     }
 }
