@@ -27,7 +27,7 @@ class records extends Command
      */
     public function handle()
     {
-        $telegraphBot = TelegraphBot::find(1);
+        $telegraphBot = TelegraphBot::findOrFail(1);
         $telegraphBot->registerWebhook()->send();
     }
 }
