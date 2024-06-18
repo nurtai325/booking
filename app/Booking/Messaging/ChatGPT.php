@@ -19,7 +19,7 @@ class ChatGPT
         "content" => "",
     ];
 
-    public function sendChatPrompt(int $chat_id, int $token): MessagePromptResponse {
+    public function sendChatPrompt(int $chat_id, string $token): MessagePromptResponse {
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
 
@@ -51,7 +51,7 @@ class ChatGPT
         );
     }
 
-    private function getMessages(int $chat_id, int $token): array {
+    private function getMessages(int $chat_id, string $token): array {
         $messages = [];
         $messages[] = self::MESSAGE_TUNING;
         $scheduleManager = new ScheduleManager();
