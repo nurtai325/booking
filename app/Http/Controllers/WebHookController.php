@@ -15,7 +15,7 @@ class WebHookController extends WebhookHandler
     {
         Log::info('new webhook request');
         Log::info($text);
-        
+
         $chat_id = $this->chat->chat_id;
 
         $message = new Message();
@@ -55,5 +55,10 @@ class WebHookController extends WebhookHandler
                 Log::info('chatgpt error');
                 var_dump($response);
         }
+    }
+
+    public function hi()
+    {
+        $this->chat->markdown("*Hi* happy to be here!")->send();
     }
 }

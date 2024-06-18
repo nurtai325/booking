@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WebHookController;
 use DefStudio\Telegraph\Telegraph;
 
 return [
@@ -28,7 +29,7 @@ return [
          *
          * For reference, see https://docs.defstudio.it/telegraph/webhooks/overview
          */
-        'handler' => \App\Http\Controllers\WebHookController::class,
+        'handler' => WebHookController::class,
 
         /*
          * Middleware to be applied to the webhook route
@@ -53,7 +54,7 @@ return [
          * If enabled, Telegraph dumps received
          * webhook messages to logs
          */
-        'debug' => false,
+        'debug' => true,
     ],
 
     /*
