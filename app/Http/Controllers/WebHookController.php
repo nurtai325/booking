@@ -8,6 +8,8 @@ use App\Booking\Messaging\TelegramAPI;
 use App\Models\Message;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class WebHookController extends WebhookHandler
 {
@@ -60,5 +62,16 @@ class WebHookController extends WebhookHandler
     public function hi()
     {
         $this->chat->markdown("*Hi* happy to be here!")->send();
+    }
+
+    protected function onFailure(Throwable $throwable): void
+    {
+        if ($throwable instanceof NotFoundHttpException) {
+            throw $throwable;
+        }
+
+        report($throwable);
+
+        $this->reply('sorry man, I failed');
     }
 }
