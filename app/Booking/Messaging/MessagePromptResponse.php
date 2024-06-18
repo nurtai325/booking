@@ -12,9 +12,9 @@ class MessagePromptResponse
     public int $booking_id;
 
     public function __construct(string $message, string $action,
-                                string $phone = null, string $name = null,
-                                string $additional_info = null,
-                                int $booking_id = null)
+                                string $phone = "", string $name = "",
+                                string $additional_info = "",
+                                int $booking_id = 0)
     {
         $this->message = $message;
         $this->action = $action;
