@@ -45,17 +45,17 @@ export default function Dashboard({ auth }: PageProps) {
 
     useEffect(() => {
         const fetchSchedule = () => {
-        axios.get(`http://localhost:/api/schedule?id=${user_id}`)
+        axios.get(`https://localhost:/api/schedule?id=${user_id}`)
             .then((response) => {
                 setSchedule(response.data.data);
                 setLoaded(true);
-                console.log("15 seconds left")
+                console.log("5 seconds left")
             })
             .catch((error) => console.log(error.message));
         }
         fetchSchedule();
 
-        const fetchScheduleTimer = setInterval(fetchSchedule, 15000)
+        const fetchScheduleTimer = setInterval(fetchSchedule, 5000)
 
         return () => clearInterval(fetchScheduleTimer);
 

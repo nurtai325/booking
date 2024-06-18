@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             'address' => 'Mukanov 51, Zhanatalap, Almaty',
             'phone' => '87052505839',
             'company_type' => 'football',
+            'bot' => '7037106255:AAEvO05WgoOGWjRB9gbhtmxNdvfyLLrQi4E',
         ]);
 
         $service = Service::factory(10)->create([

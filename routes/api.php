@@ -14,5 +14,7 @@ require __DIR__ . '/crud.php';
 Route::get('/schedule', [ScheduleController::class, 'getFullSchedule'])
     ->middleware('auth:sanctum');
 
-Route::post('book', [RecordController::class, 'book']);
-Route::post('unbook', [RecordController::class, 'unBook']);
+Route::post('book', [RecordController::class, 'book'])
+    ->middleware('auth:sanctum');
+Route::post('unbook', [RecordController::class, 'unBook'])
+    ->middleware('auth:sanctum');

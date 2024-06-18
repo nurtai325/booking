@@ -19,6 +19,7 @@ yarn-error.log
 /.idea
 /.vscode
 *.pem
+*.pub
 .env
 tmp
 docker/logs
