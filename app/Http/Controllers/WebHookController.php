@@ -72,6 +72,6 @@ class WebHookController extends WebhookHandler
 
         report($throwable);
 
-        $this->reply('sorry man, I failed');
+        $this->reply('sorry man, I failed hard');
     }
 }
