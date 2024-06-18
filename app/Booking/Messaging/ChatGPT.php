@@ -33,6 +33,7 @@ class ChatGPT
 
         $d = json_decode($chat);
         $content = $d->choices[0]->message->content;
+        Log::info($content);
 
         $response = json_decode($content);
         $message = new Message();
@@ -40,8 +41,6 @@ class ChatGPT
         $message->content = $response->message;
         $message->chat_id = $chat_id;
         $message->save();
-
-        Log::info($content);
 
         return new MessagePromptResponse($response->message,
             $response->action,
