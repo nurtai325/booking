@@ -13,6 +13,9 @@ class WebHookController extends WebhookHandler
 {
     protected function handleChatMessage(\Stringable $text): void
     {
+        Log::info('new webhook request');
+        Log::info($text);
+        
         $chat_id = $this->chat->chat_id;
 
         $message = new Message();
