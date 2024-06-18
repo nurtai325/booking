@@ -31,7 +31,7 @@ class ChatGPT
             'frequency_penalty' => 0,
             'presence_penalty' => 0,
         ]);
-        var_dump($messages);
+        Log::info(json_encode($messages));
 
         $d = json_decode($chat);
         $content = $d->choices[0]->message->content;
