@@ -42,12 +42,24 @@ class ChatGPT
         $message->chat_id = $chat_id;
         $message->save();
 
-        return new MessagePromptResponse($response->message,
-            $response->action,
-            $response->phone,
-            $response->name,
-            $response->additional_info,
-        );
+        if ($response->action === 'book') {
+            return new MessagePromptResponse($response->message,
+                $response->action,
+                $response->phone,
+                $response->name,
+                $response->additional_info,
+                $response->booking_id,
+            );
+        } else if ($response->action === 'unbook') {
+            return new MessagePromptResponse($response->message,
+                $response->action,
+                phone: $response->phone,
+                booking_id: $response->booking_id,
+            );
+
+        }
+
+        return new MessagePromptResponse($response->message, $response->action);
     }
 
     private function getMessages(int $chat_id, string $token): array {

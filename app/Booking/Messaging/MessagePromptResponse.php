@@ -12,7 +12,7 @@ class MessagePromptResponse
     public int $booking_id;
 
     public function __construct(string $message, string $action,
-                                string $phone, string $name,
+                                string $phone = null, string $name = null,
                                 string $additional_info = null,
                                 int $booking_id = null)
     {
