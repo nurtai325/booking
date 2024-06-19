@@ -6,6 +6,7 @@ use App\Booking\Booking\ScheduleManager;
 use App\Http\Controllers\ValidationTrait;
 use App\Models\Message;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use Orhanerday\OpenAi\OpenAi;
 
@@ -73,15 +74,15 @@ class ChatGPT
             ->get()
             ->reject($this->validateCreationDate());
 
-        foreach ($previous as $message) {
-            Log::info($message->content);
-        }
+        $previous = $previous->reverse();
 
         foreach ($previous as $message) {
             $messages[] = [
                 'role' => $message->role,
                 'content' => $message->content,
             ];
+
+            Log::info($message->content);
         }
 
         $user_id = User::where('bot', $token)->get()->first()->getKey();
