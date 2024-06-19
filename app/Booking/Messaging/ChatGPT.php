@@ -82,6 +82,7 @@ class ChatGPT
                 'content' => $message->content,
             ];
 
+            Log::info($message->role);
             Log::info($message->content);
         }
 
