@@ -3,6 +3,7 @@
 use App\Http\Controllers\RecordController;
 use App\Http\Controllers\ScheduleController;
 use App\Models\Message;
+use App\Models\Record;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,6 @@ Route::get('/messages', function () {
     return response()->json(Message::all());
 });
 
-Route::get('/messages', function () {
-    return response()->json(Message::all());
+Route::get('/records', function () {
+    return response()->json(Record::all());
 });
