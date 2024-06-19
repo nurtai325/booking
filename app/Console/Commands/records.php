@@ -2,8 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Controllers\ExternalAPI\OpenAIController;
-use DefStudio\Telegraph\Models\TelegraphBot;
+use App\Models\Message;
 use Illuminate\Console\Command;
 
 class records extends Command
@@ -27,7 +26,6 @@ class records extends Command
      */
     public function handle()
     {
-        $telegraphBot = TelegraphBot::findOrFail(1);
-        $telegraphBot->registerWebhook()->send();
+        Message::truncate();
     }
 }

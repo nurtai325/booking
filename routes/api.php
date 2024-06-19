@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RecordController;
 use App\Http\Controllers\ScheduleController;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,11 @@ require __DIR__ . '/crud.php';
 Route::get('/schedule', [ScheduleController::class, 'getFullSchedule'])
     ->middleware('auth:sanctum');
 
-Route::post('book', [RecordController::class, 'book'])
+Route::post('/book', [RecordController::class, 'book'])
     ->middleware('auth:sanctum');
-Route::post('unbook', [RecordController::class, 'unBook'])
+Route::post('/unbook', [RecordController::class, 'unBook'])
     ->middleware('auth:sanctum');
+
+Route::get('/messages', function () {
+    return response()->json(Message::all());
+});

@@ -68,8 +68,14 @@ class ChatGPT
         $scheduleManager = new ScheduleManager();
 
         $previous = Message::where('chat_id', $chat_id)
+            ->orderBy('message_id', 'desc')
+            ->limit(5)
             ->get()
             ->reject($this->validateCreationDate());
+
+        foreach ($previous as $message) {
+            Log::info($message->content);
+        }
 
         foreach ($previous as $message) {
             $messages[] = [
