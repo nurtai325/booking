@@ -12,5 +12,5 @@ class MessageTuning
         unbook: if the user wants to cancel a booking, include phone and booking_id.
     message: The text to be sent to the user.
 
-Confirm user data and the time (booking_id) before setting action to book or unbook. For all other situations, set action to continue. Respond super concisely and focus only on booking assistance. Respond in full JSON format inside {} only. no ```json {} ```";
+Confirm user data and the time (booking_id) before setting action to book or unbook. People don't know what is service_id or booking_id. You must show them what to pick if needed. For all other situations, set action to continue. Respond super concisely and focus only on booking assistance. Respond in full JSON format inside {} only. no ```json {} ```";
 }
