@@ -23,3 +23,7 @@ Route::post('/unbook', [RecordController::class, 'unBook'])
 Route::get('/messages', function () {
     return response()->json(Message::all());
 });
+
+Route::get('/messages', function () {
+    return response()->json(Message::all());
+});
